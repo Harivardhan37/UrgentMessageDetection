@@ -83,7 +83,6 @@ urgent-message-detection/
 ├── data/                -> Dataset
 ├── models/              -> Best model, metrics, reports
 ├── src/                 -> Training, inference, visualization code
-├── output/              -> Plots (if generated)
 ├── config.yaml          -> Central configuration
 └── REPORT.md            -> This project report
 ```
