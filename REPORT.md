@@ -2,124 +2,119 @@
 
 ## 1. Introduction
 The goal of this project is to build a Machine Learning model that can automatically classify a given text message as **Urgent** or **Normal**.  
-This kind of system is useful in customer support, IT operations, alerting pipelines, and messaging platforms where urgent communication needs to be prioritized instantly.
+Such systems are essential in customer support, IT operations, emergency alerting, and communication platforms where urgent messages must be prioritized immediately.
 
-This report explains the dataset creation, preprocessing pipeline, the different ML models trained, the evaluation metrics, comparisons, and the final model selection.
+This report explains the dataset creation process, preprocessing pipeline, the different ML models evaluated, the metrics used, model comparison, and the final model selection.
 
 ---
 
 ## 2. Dataset Description
-A custom labelled dataset (`messages.csv`) was created for this assignment. It includes a balanced set of **Urgent** and **Normal** messages.
+A custom labelled dataset (`messages.csv`) was created for this assignment. It contains a balanced set of **Urgent** and **Normal** messages.
 
 ### Types of messages included:
 - IT/system outage alerts  
-- Payment failures  
+- Payment failures and transaction errors  
 - Server-side issues  
-- Health/emergency messages  
-- Scheduling, personal, and day-to-day normal messages  
-- Mild Telugu-flavoured English messages to increase variety  
-- Campus-related examples  
+- Health/emergency-related alerts  
+- Daily routine and personal messages  
+- Mild Telugu-flavoured English messages for variety  
+- Campus-related communication  
 
-This ensures diversity and reduces bias.
+This diversity reduces bias and improves model generalization.
 
 ### Columns:
-- **message** → the text  
+- **message** → text content  
 - **label** → "Urgent" or "Normal"  
 
-A stratified split (80% train, 20% test) was used.
+A stratified 80% train / 20% test split ensures both classes remain proportionally represented.
 
 ---
 
 ## 3. Preprocessing
-All preprocessing is handled by scikit-learn’s `TfidfVectorizer` inside a pipeline.
+Preprocessing was performed using scikit-learn’s `TfidfVectorizer` within a training pipeline.
 
 ### Steps performed:
 - Convert text to lowercase  
 - Remove English stopwords  
 - Extract **unigrams and bigrams**  
-- Convert text into TF-IDF vectors  
-- Produce a sparse, high-dimensional feature matrix  
+- Convert text to TF-IDF vectors  
+- Output a sparse, high-dimensional feature matrix  
 
-TF-IDF is ideal for short text classification and works well with linear models.
+TF-IDF works well for short text classification tasks with linear models.
 
 ---
 
 ## 4. Models Trained
-Five classical ML models were trained and compared using identical TF-IDF features.
+Five classical ML models were trained on the same TF-IDF features to ensure a fair comparison.
 
 ### 1. Logistic Regression
-- Linear model  
-- Strong baseline for text  
-- Good precision & interpretability  
+- Linear model with strong performance on text  
+- Good interpretability and precision  
 
 ### 2. Multinomial Naive Bayes
-- Probabilistic model  
-- Very fast  
-- Works well for word count–based classification  
+- Probabilistic classifier  
+- Very fast and effective for text data  
 
 ### 3. Linear SVM (LinearSVC)
 - Margin-based classifier  
-- Often best for high-dimensional sparse text  
-- Very strong generalization  
+- Performs exceptionally well in high-dimensional sparse spaces  
 
 ### 4. SGDClassifier (Logistic Loss)
-- Linear model trained with stochastic gradient descent  
-- Fast, scalable  
-- Performs similarly to LR/SVM  
+- Linear model optimized with stochastic gradient descent  
+- Scales well and achieves performance similar to LR/SVM  
 
 ### 5. Random Forest
 - Ensemble of decision trees  
-- Included mainly for comparison  
-- Generally weaker for sparse TF-IDF features  
+- Included for comparison; generally weaker for sparse TF-IDF features  
 
-Each model was trained using the same training split and evaluated using the same test split.
+Each model was trained on the same training split and evaluated on the same test split.
 
 ---
 
 ## 5. Evaluation Metrics
-The following metrics were computed for each model:
+Each model was evaluated using:
 
 - **Accuracy**  
 - **Precision**  
 - **Recall**  
 - **F1-Score** (with “Urgent” as the positive class)  
 
-The F1-score for **Urgent** is the most important metric because false negatives  
-(urgent messages predicted as normal) are costly.
+The F1-score for the **Urgent** class is the primary evaluation metric because false negatives  
+(urgent messages incorrectly predicted as normal) are highly costly in real-world scenarios.
 
 ---
 
 ## 6. Model Comparison
 
-The comparison table was automatically exported as `models/model_comparison.csv`.
+The comparison table was exported as `models/model_comparison.csv`.
 
-*(Example layout shown below — actual numbers depend on runtime results)*
+(Example structure below — actual numbers depend on execution)
 
-| Model | Accuracy | Precision | Recall | F1 |
-|-------|----------|-----------|--------|-----|
-| Logistic Regression | ... | ... | ... | ... |
-| Naive Bayes | ... | ... | ... | ... |
-| Linear SVM | ... | ... | ... | ... |
-| SGDClassifier | ... | ... | ... | ... |
-| Random Forest | ... | ... | ... | ... |
+| Model                | Accuracy | Precision | Recall | F1   |
+|----------------------|----------|-----------|--------|------|
+| Logistic Regression  | ...      | ...       | ...    | ...  |
+| Naive Bayes          | ...      | ...       | ...    | ...  |
+| Linear SVM           | ...      | ...       | ...    | ...  |
+| SGDClassifier        | ...      | ...       | ...    | ...  |
+| Random Forest        | ...      | ...       | ...    | ...  |
 
 ---
 
 ## 7. Best Model Selection
-The **best model** was selected based on the **highest F1-score for the “Urgent” class**.
+The best model was selected purely based on the **highest F1-score for the Urgent class**.
 
 This ensures:
-- Urgent messages are detected reliably  
-- Fewer false negatives  
-- Higher real-world safety in alerting systems  
+- Reliable detection of urgent messages  
+- Reduced false negatives  
+- Better real-world performance for alerting systems  
 
-The selected model is saved as:
+The selected model is saved at:
 
 ```
 models/best_model.pkl
 ```
 
-The detailed classification report of the best model is saved as:
+The detailed performance metrics of the best model are saved in:
 
 ```
 models/best_model_report.txt
@@ -128,57 +123,57 @@ models/best_model_report.txt
 ---
 
 ## 8. Explainability – Top Urgent Keywords
-For linear models (LR, Linear SVM, SGD), we extracted the **top TF-IDF features** that strongly contribute to predicting "Urgent".
+For linear models (Logistic Regression, Linear SVM, SGD), the top TF-IDF features contributing to the “Urgent” class were extracted.
 
-These are saved in:
+These are saved at:
 
 ```
 models/top_features_urgent.txt
 ```
 
-These keywords typically include:
-- “down”
-- “failure”
-- “immediately”
-- “asap”
-- “server”
-- “error”
-- “urgent”
+Common urgent indicators include:
+- down  
+- failure  
+- immediately  
+- asap  
+- server  
+- error  
+- urgent  
 
-This helps validate that the model is learning meaningful patterns.
+These confirm the model is learning meaningful patterns.
 
 ---
 
 ## 9. Visualizations
-To support analysis and presentation, `visualize.py` generates:
+The script `visualize.py` generates the following visualizations:
 
-### ✔ Model Comparison Charts
-Accuracy and F1-score bar charts for all 5 models.
+### Model Comparison Charts
+Bar charts comparing accuracy and F1-scores of all 5 models.
+![alt text](image.png)
+![alt text](image-1.png)
 
-### ✔ Confusion Matrix (Best Model)
-Shows:
-- True Urgent detected  
-- False Urgent  
-- False Normal  
-- True Normal  
+### Confusion Matrix (Best Model)
+Displays:
+- True positives (urgent correctly detected)  
+- False positives  
+- False negatives  
+- True negatives  
+![alt text](image-2.png)
 
-Useful for understanding mistakes.
+### Top TF-IDF Features Plot
+Shows the most important urgent-related keywords.
+![alt text](image-3.png)
 
-### ✔ Top TF-IDF Features Plot
-Displays the most influential urgent-related keywords.
-
-These are optional but helpful for evaluation and interview discussion.
+These visuals enhance interpretability and are useful for presentations.
 
 ---
 
 ## 10. Final Results (Summary)
 - A complete ML pipeline was built using TF-IDF + classical classifiers.  
-- 5 models were trained and compared using standardized metrics.  
-- The best model was automatically selected based on **F1(Urgent)**.  
-- Explainability and visual exploration were included.  
-- The project is modular, config-driven, and easy to run.  
-
-The system predicts unseen messages using:
+- Five models were trained and evaluated on standard metrics.  
+- The best model was automatically selected using the F1-score for the Urgent class.  
+- Explainability and visualization support were added for clarity.  
+- The system supports easy inference using:
 
 ```
 python src/infer.py "your message here"
@@ -187,25 +182,25 @@ python src/infer.py "your message here"
 ---
 
 ## 11. Limitations
-- Dataset size is small (hand-created)  
-- TF-IDF doesn't capture deep semantic meaning  
+- Dataset is small and manually created  
+- TF-IDF does not capture deep semantic meaning  
 - No hyperparameter tuning performed  
-- No handling of extremely long messages  
+- Very long messages are not specifically handled  
 
 ---
 
 ## 12. Future Work
-- Use larger real-world datasets  
-- Implement hyperparameter optimization  
-- Try deep learning models (BERT, DistilBERT)  
-- Deploy the model as a REST API (FastAPI)  
-- Add model monitoring and drift detection  
+- Expand dataset size with real-world samples  
+- Perform hyperparameter optimization  
+- Explore deep learning models (e.g., BERT, DistilBERT)  
+- Deploy as a REST API using FastAPI  
+- Add monitoring, logging, and model drift detection  
 
 ---
 
 ## 13. Conclusion
-This project successfully demonstrates the complete workflow for urgent message detection using classical Machine Learning methods.  
-The model comparison approach provides a clear understanding of which algorithm performs best for this task, and the explainability tools confirm that the model learns intuitive patterns.
+This project successfully demonstrates an end-to-end workflow for urgent message detection using classical Machine Learning techniques.  
+By training multiple models and comparing their performance, the system ensures robust and reliable urgent message classification.
 
-This report, combined with the codebase and documentation, forms a complete, end-to-end ML assignment submission.
+This report, along with the codebase, forms a complete, professional ML submission.
 

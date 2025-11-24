@@ -1,34 +1,52 @@
 # Urgent Message Detection – ML Classification Project
 
-## 1. Overview
-This project builds a Machine Learning pipeline to classify short text messages as **Urgent** or **Normal**.  
-It uses TF-IDF features and evaluates **multiple classical ML classifiers**, selecting the best based on F1-score for the urgent class.
+This project implements a complete Machine Learning pipeline to classify short text messages as **Urgent** or **Normal** using TF-IDF vectorization and classical ML models.  
+Five different models are trained, compared, and the best model is automatically selected using the **F1-score for the Urgent class**.
 
-The final model is saved as `best_model.pkl`, and an inference script is provided to test new messages.
+An inference script is provided to test new messages from the command line.
+
+---
+
+## 1. Overview
+
+This project includes:
+
+- Custom labelled dataset  
+- TF-IDF vectorization (unigrams + bigrams)  
+- Training 5 classical ML models  
+- Performance comparison using Accuracy, Precision, Recall, and F1-score  
+- Best-model selection  
+- Explainability tools (top keywords, confusion matrix)  
+- CLI-based inference  
+- Config-driven modular architecture  
+
+All trained models and metrics are saved inside the `models/` directory.
 
 ---
 
 ## 2. Project Features
+
 - Custom dataset of labelled messages  
-- TF-IDF text vectorization (uni + bi-grams)  
-- Training of **5 different classifiers**:
+- TF-IDF (1-2 grams) for feature extraction  
+- Models trained:
   - Logistic Regression  
   - Multinomial Naive Bayes  
   - Linear SVM  
   - SGDClassifier  
   - Random Forest  
-- Automatic model comparison using Accuracy, Precision, Recall, and F1-score  
-- Best model selection  
-- Explainability:
-  - Top TF-IDF features for “Urgent”  
+- Automatic model comparison  
+- Selection of best model based on F1(Urgent)  
+- Explainability outputs:
+  - Top urgent TF-IDF features  
   - Confusion matrix  
   - Model comparison bar charts  
-- Clean config-based project structure  
 - CLI inference support  
+- Config-based project design  
 
 ---
 
 ## 3. Project Structure
+
 ```
 urgent-message-detection/
 │
@@ -58,18 +76,17 @@ urgent-message-detection/
 
 ## 4. Installation
 
-### 4.1 Create virtual environment (optional)
+### Optional: Create virtual environment
 ```bash
 python -m venv .venv
 ```
 
-### 4.2 Activate it
-**Windows:**
+### Activate environment (Windows)
 ```bash
 .venv\Scripts\activate
 ```
 
-### 4.3 Install dependencies
+### Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
@@ -77,7 +94,8 @@ pip install -r requirements.txt
 ---
 
 ## 5. Training the Model
-Run:
+
+Run the training script:
 
 ```bash
 python src/train.py
@@ -85,22 +103,23 @@ python src/train.py
 
 This will:
 
-- Load dataset  
+- Load the dataset  
 - Train all 5 ML models  
-- Compare metrics  
-- Select best model  
-- Save:
-  - `models/best_model.pkl`
-  - `models/metrics.json`
-  - `models/all_metrics.json`
-  - `models/model_comparison.csv`
-  - `models/best_model_report.txt`
-  - `models/top_features_urgent.txt`
+- Compare model metrics  
+- Select the best-performing model  
+- Save the following in `models/`:
+  - best_model.pkl  
+  - metrics.json  
+  - all_metrics.json  
+  - model_comparison.csv  
+  - best_model_report.txt  
+  - top_features_urgent.txt  
 
 ---
 
 ## 6. Testing New Messages (Inference)
-To classify new text messages:
+
+Run inference:
 
 ```bash
 python src/infer.py "Server is down for all users" "Let's meet tomorrow"
@@ -113,18 +132,19 @@ Example output:
 [Normal] Let's meet tomorrow
 ```
 
-The inference script automatically loads the best saved model.
+The script automatically loads the best model and TF-IDF vectorizer.
 
 ---
 
 ## 7. Visualizations (Optional)
-To view comparison charts, confusion matrix, or top urgent keywords:
+
+Generate charts and confusion matrix:
 
 ```bash
 python src/visualize.py
 ```
 
-You will get an interactive menu:
+You will see an interactive menu:
 
 ```
 1. Model comparison
@@ -132,25 +152,27 @@ You will get an interactive menu:
 3. Top urgent keywords
 ```
 
-These visuals are useful for analysis or presentation in the report.
+Charts help in presentations, evaluation, and explanation.
 
 ---
 
 ## 8. Configuration
-Settings are stored in `config.yaml`:
 
-- dataset path  
-- text/label column names  
-- test split  
-- positive label  
-- model save paths  
-- list of models used  
+Settings stored in `config.yaml` include:
 
-This makes the project clean and configurable.
+- Path to dataset  
+- Text and label column names  
+- Train-test split ratio  
+- Positive class  
+- Paths for saving model outputs  
+- List of models to train  
+
+This design makes the project modular and easy to modify.
 
 ---
 
 ## 9. Requirements
+
 ```
 pandas
 scikit-learn
@@ -162,12 +184,17 @@ matplotlib
 ---
 
 ## 10. Notes
+
 - The dataset (`messages.csv`) is manually created and balanced.  
-- The best model is selected purely based on F1-score for the **Urgent** class.  
-- All evaluation results are automatically exported under the `models/` directory.
+- Best model is selected purely based on F1-score for the Urgent class.  
+- All evaluation results are stored in the `models/` directory.  
+- The project uses a clean, professional, config-driven architecture.
 
 ---
 
 ## 11. Author
+
 Harivardhan  
-Urgent Message Detection ML Assignment
+Urgent Message Detection – ML Classification Project
+
+---
