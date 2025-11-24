@@ -1,0 +1,22 @@
+Top features for 'Urgent' class:
+
+immediately: 0.6648
+urgent: 0.5710
+server: 0.4428
+production: 0.4034
+fix: 0.3937
+high: 0.3817
+needed: 0.3699
+detected: 0.3525
+outage: 0.3274
+users: 0.3237
+required: 0.3088
+urgently: 0.3059
+failed: 0.3048
+suspected: 0.2979
+security: 0.2975
+need: 0.2966
+immediate: 0.2929
+needs: 0.2837
+severe: 0.2714
+errors: 0.2476

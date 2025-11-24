@@ -1,0 +1,6 @@
+model,accuracy,precision,recall,f1
+logistic_regression,1.0,1.0,1.0,1.0
+naive_bayes,1.0,1.0,1.0,1.0
+linear_svm,1.0,1.0,1.0,1.0
+sgd_classifier,0.96,0.9230769230769231,1.0,0.96
+random_forest,0.72,1.0,0.4166666666666667,0.5882352941176471
