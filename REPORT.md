@@ -44,7 +44,55 @@ TF-IDF works well for short text classification tasks with linear models.
 
 ---
 
-## 4. Models Trained
+## 4. System Architecture
+
+The project follows a modular and pipeline-based architecture. Each major component is separated to ensure clarity, reusability, and maintainability.
+
+### Architecture Overview
+
+1. **Dataset Layer**  
+   - Stores the manually created labelled dataset (`messages.csv`).
+
+2. **Preprocessing & Feature Extraction**  
+   - Uses `TfidfVectorizer` to tokenize, remove stopwords, and convert text into numerical vectors using uni-grams and bi-grams.
+
+3. **Model Training Module**  
+   - Trains five classical machine learning models using the same TF-IDF features.  
+   - Includes Logistic Regression, Naive Bayes, Linear SVM, SGDClassifier, and Random Forest.
+
+4. **Evaluation Module**  
+   - Computes accuracy, precision, recall, F1-score, and generates a classification report.  
+   - Saves all metrics to JSON files and comparison tables.
+
+5. **Model Selection Module**  
+   - Automatically selects the best model based on the F1-score of the Urgent class.
+
+6. **Explainability Module**  
+   - Extracts top TF-IDF features indicating urgency.  
+   - Generates confusion matrix and model comparison plots.
+
+7. **Inference Module**  
+   - Loads the saved model and vectorizer.  
+   - Predicts the label for new input messages.
+
+### Folder Structure (for reference)
+
+```
+urgent-message-detection/
+│
+├── data/                -> Dataset
+├── models/              -> Best model, metrics, reports
+├── src/                 -> Training, inference, visualization code
+├── output/              -> Plots (if generated)
+├── config.yaml          -> Central configuration
+└── REPORT.md            -> This project report
+```
+
+This architecture ensures that every stage of the ML pipeline—from preprocessing to model selection and inference—is cleanly separated and easy to extend.
+
+---
+
+## 5. Models Trained
 Five classical ML models were trained on the same TF-IDF features to ensure a fair comparison.
 
 ### 1. Logistic Regression
@@ -71,7 +119,7 @@ Each model was trained on the same training split and evaluated on the same test
 
 ---
 
-## 5. Evaluation Metrics
+## 6. Evaluation Metrics
 Each model was evaluated using:
 
 - **Accuracy**  
@@ -84,7 +132,7 @@ The F1-score for the **Urgent** class is the primary evaluation metric because f
 
 ---
 
-## 6. Model Comparison
+## 7. Model Comparison
 
 The comparison table was exported as `models/model_comparison.csv`.
 
@@ -100,7 +148,7 @@ The comparison table was exported as `models/model_comparison.csv`.
 
 ---
 
-## 7. Best Model Selection
+## 8. Best Model Selection
 The best model was selected purely based on the **highest F1-score for the Urgent class**.
 
 This ensures:
@@ -122,7 +170,7 @@ models/best_model_report.txt
 
 ---
 
-## 8. Explainability – Top Urgent Keywords
+## 9. Explainability – Top Urgent Keywords
 For linear models (Logistic Regression, Linear SVM, SGD), the top TF-IDF features contributing to the “Urgent” class were extracted.
 
 These are saved at:
@@ -144,7 +192,7 @@ These confirm the model is learning meaningful patterns.
 
 ---
 
-## 9. Visualizations
+## 10. Visualizations
 The script `visualize.py` generates the following visualizations:
 
 ### Model Comparison Charts
@@ -168,7 +216,7 @@ These visuals enhance interpretability and are useful for presentations.
 
 ---
 
-## 10. Final Results (Summary)
+## 11. Final Results (Summary)
 - A complete ML pipeline was built using TF-IDF + classical classifiers.  
 - Five models were trained and evaluated on standard metrics.  
 - The best model was automatically selected using the F1-score for the Urgent class.  
@@ -181,7 +229,7 @@ python src/infer.py "your message here"
 
 ---
 
-## 11. Limitations
+## 12. Limitations
 - Dataset is small and manually created  
 - TF-IDF does not capture deep semantic meaning  
 - No hyperparameter tuning performed  
@@ -189,7 +237,7 @@ python src/infer.py "your message here"
 
 ---
 
-## 12. Future Work
+## 13. Future Work
 - Expand dataset size with real-world samples  
 - Perform hyperparameter optimization  
 - Explore deep learning models (e.g., BERT, DistilBERT)  
@@ -198,7 +246,7 @@ python src/infer.py "your message here"
 
 ---
 
-## 13. Conclusion
+## 14. Conclusion
 This project successfully demonstrates an end-to-end workflow for urgent message detection using classical Machine Learning techniques.  
 By training multiple models and comparing their performance, the system ensures robust and reliable urgent message classification.
 
