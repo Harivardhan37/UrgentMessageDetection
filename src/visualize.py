@@ -18,7 +18,6 @@ def load_config(config_path: str = "config.yaml"):
 
 
 #  1. Model comparison bar charts
-
 def plot_model_comparison(model_dir: str = "models"):
     """
     Reads model_comparison.csv (created by train.py) and
@@ -58,7 +57,6 @@ def plot_model_comparison(model_dir: str = "models"):
 
 
 # 2. Confusion matrix for best model
-
 def plot_confusion_matrix_for_best(config_path: str = "config.yaml"):
     """
     Rebuilds the same train/test split as in train.py,
@@ -113,7 +111,6 @@ def plot_confusion_matrix_for_best(config_path: str = "config.yaml"):
 
 
 # 3. Top urgent keywords bar chart
-
 def plot_top_urgent_features(model_dir: str = "models"):
     """
     Reads top_features_urgent.txt (created by train.py) and
@@ -162,7 +159,6 @@ def plot_top_urgent_features(model_dir: str = "models"):
 
 
 # Main
-
 if __name__ == "__main__":
     print("=== Visualization Menu ===")
     print("1. Model comparison (Accuracy & F1)")

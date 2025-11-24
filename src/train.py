@@ -31,8 +31,8 @@ def build_models(max_iter: int = 500):
     - Logistic Regression
     - Multinomial Naive Bayes
     - Linear SVM
-    - SGDClassifier (linear model, good for text)
-    - Random Forest (for contrast with tree-based model)
+    - SGDClassifier 
+    - Random Forest 
     """
     # Common vectorizer config for all models
     vectorizer = TfidfVectorizer(
@@ -222,7 +222,7 @@ def main(config_path: str):
 
     print(f"\n[INFO] Best model based on F1({pos_label}): {best_model_name} (F1 = {best_f1:.4f})")
 
-    # 6. Save per-model metrics (JSON + CSV)
+    # 6. Save per-model metrics(JSON + CSV)
     all_metrics_path = os.path.join(model_dir, "all_metrics.json")
     with open(all_metrics_path, "w") as f:
         json.dump(all_metrics, f, indent=4)
@@ -246,7 +246,7 @@ def main(config_path: str):
     save_top_features_urgent(best_model, top_k=20, output_path=top_features_path)
     print(f"[INFO] Top urgent features (if available) saved to {top_features_path}")
 
-    # 8. Save best model and its metrics (for assignment requirement)
+    # 8. Save best model and its metrics 
     final_metrics = {
         "best_model": best_model_name,
         "f1_best_model": best_f1,
